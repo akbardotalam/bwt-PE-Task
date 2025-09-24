@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bwt-api
+  namespace: bwt-sandbox
+  labels:
+    app: bwt-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bwt-api
+  template:
+    metadata:
+      labels:
+        app: bwt-api
+    spec:
+      containers:
+      - name: bwt-api
+        image: 905418367633.dkr.ecr.eu-west-3.amazonaws.com/bwt-pe:latest
+        ports:
+        - containerPort: 3000
