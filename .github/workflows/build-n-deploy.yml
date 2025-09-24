@@ -17,9 +17,6 @@ jobs:
   build_and_push:
     name: Build and Push
     runs-on: ubuntu-latest
-    env:
-      API_REPO_NAME: eu-prod_hellobible_api
-      EKS_API_SECRET_NAME: hellobibleapi
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
@@ -31,8 +28,19 @@ jobs:
           aws-region: eu-west-3
           role-to-assume: arn:aws:iam::905418367633:role/bwt-pe-github-auth-role
 
-      - name: Auth Testing
+      - name: ECR Login
+        id: ecr-login
+        uses:  aws-actions/amazon-ecr-login@v2
+    
+      - name: Build, Tag and Push to ECR
+        env:
+            ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }} 
+            ECR_REPOSITORY: bwt-pe
+            IMAGE_TAG: ${{ github.sha }}
         run: |
-            aws sts get-caller-identity
-        
-        
+            IMAGE_TAG=$(git rev-parse --short "$GITHUB_SHA")
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker images
+            # docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+            # docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
+            
