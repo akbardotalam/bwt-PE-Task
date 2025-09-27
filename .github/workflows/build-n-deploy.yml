@@ -46,3 +46,4 @@ jobs:
       - name: Cluster Authentication
         run: |
           aws eks update-kubeconfig --name cloudops-default --region us-east-1
+          kubectl get ns 
