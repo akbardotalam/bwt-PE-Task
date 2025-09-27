@@ -5,6 +5,12 @@ This repository contains the solution for the Platform Engineer Case Study, wher
 The application is live and available at:
 👉 https://bwtsandboxapi.adroitcube.com
 
+API Endpoints:
+
+https://bwtsandboxapi.adroitcube.com/users
+
+https://bwtsandboxapi.adroitcube.com/crash
+
 
 ## Task Overview
 
@@ -29,7 +35,7 @@ The application is live and available at:
 
 ### Note
 Everything required to reproduce this setup is included in this repository:
-* Dockerfile
-* Helm chart -> bwt-sandbox folder
-* CI/CD configuration files -> .github/workflows folder
-* SSL Cert-Manager configuration file -> deployment-manifest folder
+* [Dockerfile](https://github.com/akbardotalam/bwt-PE-Task/blob/main/Dockerfile)
+* [Helm chart bwt-sandbox](https://github.com/akbardotalam/bwt-PE-Task/tree/main/bwt-sandbox)
+* [CI/CD](https://github.com/akbardotalam/bwt-PE-Task/blob/main/.github/workflows/build-n-deploy.yml)
+* [SSL Cert Manager Configs](https://github.com/akbardotalam/bwt-PE-Task/blob/main/deployment-manifest/cert-configs.yaml)
