@@ -12,16 +12,16 @@ spec:
   selector:
     matchLabels:
       {{- with .Values.labels }}
-      {{- toYaml . | nindent 8 }}  # Indented properly for matchLabels
+      {{- toYaml . | nindent 8 }}
       {{- end }}
   template:
     metadata:
       labels:
         {{- with .Values.labels }}
-        {{- toYaml . | nindent 8 }}  # Indented properly for pod labels
+        {{- toYaml . | nindent 8 }}
         {{- end }}
         {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}  # Indented properly for pod-specific labels
+        {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       containers:
@@ -32,7 +32,7 @@ spec:
         resources:
           {{- with .Values.resources }}
           requests:
-            {{- toYaml .requests | nindent 12 }}  # Looping through 'requests'
+            {{- toYaml .requests | nindent 12 }}
           limits:
-            {{- toYaml .limits | nindent 12 }}  # Looping through 'limits'
+            {{- toYaml .limits | nindent 12 }}
           {{- end }}

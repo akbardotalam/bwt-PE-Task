@@ -1,4 +1,4 @@
-name: Build and Push to ECR
+name: Build, Push And  Deploy
 run-name: Build N Deploy BWT-Sandbox by @${{ github.actor }} 🚀
 
 

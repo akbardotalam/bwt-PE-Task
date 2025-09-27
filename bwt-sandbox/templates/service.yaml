@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
       {{- with .Values.labels }}
-      {{- toYaml . | nindent 8 }}  # Indented properly for matchLabels
+      {{- toYaml . | nindent 8 }}
       {{- end }}
   ports:
   - protocol: TCP
