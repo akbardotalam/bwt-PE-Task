@@ -1,0 +1,29 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: bwt-sandbox-cert-isssuer
+  namespace: bwt-sandbox
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: info.alambiz@gmail.com
+    privateKeySecretRef:
+      name: bwt-sandbox-cert-isssuer
+    solvers:
+    - http01:
+        ingress:
+          class: nginx       
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bwt-sandbox-cert
+  namespace: bwt-sandbox
+spec:
+  secretName: bwt-sandbox-cert-secret
+  issuerRef:
+    name: bwt-sandbox-cert-isssuer
+    kind: ClusterIssuer
+  commonName: bwtsandboxapi.adroitcube.com
+  dnsNames:
+  - bwtsandboxapi.adroitcube.com

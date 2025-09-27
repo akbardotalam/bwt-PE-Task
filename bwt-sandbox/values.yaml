@@ -1,0 +1,56 @@
+namespace:
+  name: bwt-sandbox
+
+replicaCount: 1
+
+labels:
+  app: my-app
+  env: bwt-sandbox
+
+podLabels:
+  app: my-app
+  env: bwt-sandbox
+
+image:
+  repository: 905418367633.dkr.ecr.eu-west-3.amazonaws.com/bwt-pe
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+# Define resources for requests and limits
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+
+
+service:
+  port: 80
+  targetPort: 3000
+  type: ClusterIP
+
+
+ingress:
+  enabled: true  
+  ingressClassName: nginx 
+  annotations: {}
+  tls:
+    enabled: true
+    secretName: bwt-sandbox-cert-secret
+    hosts:
+      - bwtsandboxapi.adroitcube.com
+  rules:
+    - host: bwtsandboxapi.adroitcube.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: bwt-sandbox-svc
+              port:
+                number: 80

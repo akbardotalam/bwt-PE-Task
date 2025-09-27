@@ -43,3 +43,6 @@ jobs:
             docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
             docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
             
+      - name: Cluster Authentication
+        run: |
+          aws eks update-kubeconfig --name cloudops-default --region us-east-1

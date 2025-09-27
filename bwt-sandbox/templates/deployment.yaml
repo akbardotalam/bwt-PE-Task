@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.namespace.name }}-api"
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- with .Values.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- with .Values.labels }}
+      {{- toYaml . | nindent 8 }}  # Indented properly for matchLabels
+      {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- with .Values.labels }}
+        {{- toYaml . | nindent 8 }}  # Indented properly for pod labels
+        {{- end }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}  # Indented properly for pod-specific labels
+        {{- end }}
+    spec:
+      containers:
+      - name: "{{ .Values.namespace.name }}-api"
+        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        resources:
+          {{- with .Values.resources }}
+          requests:
+            {{- toYaml .requests | nindent 12 }}  # Looping through 'requests'
+          limits:
+            {{- toYaml .limits | nindent 12 }}  # Looping through 'limits'
+          {{- end }}
