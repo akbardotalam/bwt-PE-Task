@@ -43,7 +43,13 @@ jobs:
             docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
             docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
             
-      - name: Cluster Authentication
+
+      - name: Deploy BWT sandboxAPI
         run: |
+          IMAGE_TAG=$(git rev-parse --short "${{ github.sha }}")
           aws eks update-kubeconfig --name cloudops-default --region us-east-1
-          kubectl get ns 
+          helm upgrade --install bwt-sandbox ./bwt-sandbox \
+          -f ./bwt-sandbox/values.yaml \
+          --set image.tag=$IMAGE_TAG \
+          --namespace bwt-sandbox --create-namespace \
+          --wait
