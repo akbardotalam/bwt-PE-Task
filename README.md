@@ -35,6 +35,7 @@ https://bwtsandboxapi.adroitcube.com/crash
 
 ### Note
 Everything required to reproduce this setup is included in this repository:
+* [Infrastructure Deployment](https://github.com/akbardotalam/bwt-PE-infra)
 * [Dockerfile](https://github.com/akbardotalam/bwt-PE-Task/blob/main/Dockerfile)
 * [Helm chart bwt-sandbox](https://github.com/akbardotalam/bwt-PE-Task/tree/main/bwt-sandbox)
 * [CI/CD](https://github.com/akbardotalam/bwt-PE-Task/blob/main/.github/workflows/build-n-deploy.yml)
